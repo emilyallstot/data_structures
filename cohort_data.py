@@ -23,7 +23,7 @@ def unique_houses(filename):
         houses.add(student[2])
     return houses
 
-#print unique_houses("cohort_data.txt")
+# print unique_houses("cohort_data.txt")
 
 
 
@@ -60,13 +60,14 @@ def sort_by_cohort(filename):
             summer_15.append(student_name)
         else:
             tas.append(student_name)
+    return all_students
     # print winter_15
     # print spring_15
     # print summer_15
     # print tas
 
 
-# sort_by_cohort("cohort_data.txt")
+# print sort_by_cohort("cohort_data.txt")
 
 
 
@@ -112,29 +113,53 @@ def students_by_house(filename):
         student_name = student [1]
         if student[2] == "Gryffindor":
             gryffindor.append(student_name)
-            gryffindor = sorted(gryffindor)
+            # gryffindor = sorted(gryffindor)
+
         elif student[2] == "Hufflepuff":
             hufflepuff.append(student_name)
-            hufflepuff = sorted(hufflepuff)
+            # hufflepuff = sorted(hufflepuff)
         elif student[2] == "Slytherin":
             slytherin.append(student_name)
-            slytherin = sorted(slytherin)
+            # slytherin = sorted(slytherin)
         elif student[2] == "Ravenclaw":
             ravenclaw.append(student_name)
-            ravenclaw = sorted(ravenclaw)
+            # ravenclaw = sorted(ravenclaw)
         elif student[2] == "Dumbledore's Army":
             dumbledores_army.append(student_name)
-            dumbledores_army = sorted(dumbledores_army)
+            # dumbledores_army = sorted(dumbledores_army)
         elif student[2] == "Order of the Phoenix":
             order_of_the_phoenix.append(student_name)
-            order_of_the_phoenix = sorted(order_of_the_phoenix)
+            # order_of_the_phoenix = sorted(order_of_the_phoenix)
         else:
             tas.append(student_name)
-            tas = sorted(tas)
-    print gryffindor
+            #tas = sorted(tas)
+
+    gryffindor.sort()
+    slytherin.sort()
+    ravenclaw.sort()
+    dumbledores_army.sort()
+    order_of_the_phoenix.sort()
+    tas.sort()
+
+    # print gryffindor
+    # print hufflepuff
+    # print slytherin
+    # print ravenclaw
+    # print dumbledores_army
+    # print order_of_the_phoenix
+    # print tas
+
+    # all_students = [gryffindor, hufflepuff, slytherin, ravenclaw, dumbledores_army, order_of_the_phoenix, tas]
+
+   
+    for houses in all_students:
+        print houses
+        print('\n')
+
+
     return all_students
 
-students_by_house("cohort_data.txt")
+# students_by_house("cohort_data.txt")
 
 
 def all_students_tuple_list(filename):
@@ -152,8 +177,14 @@ def all_students_tuple_list(filename):
     student_list = []
 
     # Code goes here
-
+    file = open(filename)
+    for line in file:
+        line = line.rstrip()
+        student = line.split("|")        
+        student_tuple = tuple(student)
+        student_list.append(student_tuple)
     return student_list
+
 
 
 def find_cohort_by_student_name(student_list):
@@ -164,9 +195,19 @@ def find_cohort_by_student_name(student_list):
     'Student not found.' when appropriate. """
 
     # Code goes here
+    student_tuples = all_students_tuple_list(student_list)
+    # print student_tuples
 
-    return "Student not found."
+    student_name = raw_input("Type in student's first name: ")
 
+    for student in student_tuples:
+        print student
+        if student_name == student[0]:
+            return student[4]
+        else:
+            return "Student not found."
+
+print find_cohort_by_student_name('cohort_data.txt')
 
 ##########################################################################################
 # Further Study Questions
